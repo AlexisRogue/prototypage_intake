@@ -8,16 +8,23 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Intake;
 
 public class RobotContainer {
   Joystick stick = new Joystick(0);
   JoystickButton button1 = new JoystickButton(stick, 0);
+  JoystickButton button2 = new JoystickButton(stick, 1);
+  JoystickButton button3 = new JoystickButton(stick, 2);
+  JoystickButton button4 = new JoystickButton(stick, 3);
   Intake intake = new Intake();
 
   public RobotContainer() {
     configureBindings();
 
-    button1.onTrue(intake.spinStopIntake(1));
+    button1.onTrue(intake.spinStopIntake(1));// Intake le fuel
+    button2.onTrue(intake.extendIntake(1));// Extend le intake
+    button3.onTrue(intake.retractIntake(1));// Retract le intake
+    button4.onTrue(intake.stopExtending());// Arrete l'extension du intake
   }
 
   private void configureBindings() {
