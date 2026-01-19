@@ -18,8 +18,8 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-    rollerMotor = new TalonFX(Constants.rollerMotorID);
-    extendMotor = new TalonFX(Constants.extendMotorID);
+    rollerMotor = new TalonFX(Constants.kRollerMotorID);
+    extendMotor = new TalonFX(Constants.kExtendMotorID);
   }
 
   @Override
@@ -39,16 +39,16 @@ public class Intake extends SubsystemBase {
 
   public Command extendIntake(int voltage) {
     extending = true;
-    return this.run(() -> extendMotor.setVoltage(voltage));
+    return this.run(() -> extendMotor.setVoltage(voltage + Constants.kGExtension));
   }
 
   public Command stopExtending() {
-    return this.run(() -> extendMotor.setVoltage(0));
+    return this.run(() -> extendMotor.setVoltage(Constants.kGExtension));
   }
 
   public Command retractIntake(int voltage) {
     extending = false;
-    return this.run(() -> extendMotor.setVoltage(-voltage));
+    return this.run(() -> extendMotor.setVoltage(-voltage + Constants.kGExtension));
   }
 
   public ConditionalCommand spinStopIntake(int voltage) {
