@@ -21,9 +21,9 @@ public class RobotContainer {
   public RobotContainer() {
     configureBindings();
 
-    button1.onTrue(intake.spinStopIntake(1));// Intake le fuel
-    button2.onTrue(intake.extendIntake(1));// Extend le intake
-    button3.onTrue(intake.retractIntake(1));// Retract le intake
+    button1.onTrue(intake.spinStopIntake(0.5));// Intake le fuel
+    button2.onTrue(intake.extendIntake(0.5));// Extend le intake
+    button3.onTrue(intake.retractIntake(0.5));// Retract le intake
     button4.onTrue(intake.stopExtending());// Arrete l'extension du intake
   }
 

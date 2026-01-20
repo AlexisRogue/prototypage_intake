@@ -27,7 +27,7 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public Command spinIntake(int voltage) {
+  public Command spinIntake(double voltage) {
     spinning = true;
     return this.run(() -> rollerMotor.setVoltage(voltage));
   }
@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
     return this.run(() -> rollerMotor.setVoltage(0));
   }
 
-  public Command extendIntake(int voltage) {
+  public Command extendIntake(double voltage) {
     extending = true;
     return this.run(() -> extendMotor.setVoltage(voltage + Constants.kGExtension));
   }
@@ -46,12 +46,12 @@ public class Intake extends SubsystemBase {
     return this.run(() -> extendMotor.setVoltage(Constants.kGExtension));
   }
 
-  public Command retractIntake(int voltage) {
+  public Command retractIntake(double voltage) {
     extending = false;
     return this.run(() -> extendMotor.setVoltage(-voltage + Constants.kGExtension));
   }
 
-  public ConditionalCommand spinStopIntake(int voltage) {
+  public ConditionalCommand spinStopIntake(double voltage) {
     return new ConditionalCommand(stopIntake(), spinIntake(voltage), () -> spinning);
 
   }
