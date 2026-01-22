@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,12 +19,16 @@ public class Intake extends SubsystemBase {
   TalonFX rollerMotor;
   TalonFX extendLeftMotor;
   TalonFX extendRightMotor;
+  TalonFXConfiguration leftMotorConfig;
+  TalonFXConfiguration rightMotorConfig;
 
   /** Creates a new Intake. */
   public Intake() {
     rollerMotor = new TalonFX(Constants.kRollerMotorID);
     extendLeftMotor = new TalonFX(Constants.kExtendLeftMotorID);
     extendRightMotor = new TalonFX(Constants.kExtendRightMotorID);
+    leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
   }
 
   @Override
