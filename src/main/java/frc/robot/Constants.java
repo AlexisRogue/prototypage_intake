@@ -6,8 +6,7 @@ package frc.robot;
 
 /** Add your docs here. */
 public class Constants {
-    public final static int kRollerMotorID = 0;
-    public final static int kExtendLeftMotorID = 0;
-    public final static int kExtendRightMotorID = 0;
-    public final static double kGExtension = 0.5;
+    public final static int kRollerMotorID = 10;
+    public final static int kExtendMotorID = 99;
+    public final static double kGExtension = 0.2;
 }
