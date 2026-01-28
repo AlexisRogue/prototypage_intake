@@ -17,18 +17,17 @@ public class Intake extends SubsystemBase {
   boolean spinning = false;
   boolean extending = false;
   TalonFX rollerMotor;
-  TalonFX extendLeftMotor;
-  TalonFX extendRightMotor;
-  TalonFXConfiguration leftMotorConfig;
-  TalonFXConfiguration rightMotorConfig;
+  TalonFX extendMotor;
+  TalonFXConfiguration extendingMotorConfig;
+
 
   /** Creates a new Intake. */
   public Intake() {
     rollerMotor = new TalonFX(Constants.kRollerMotorID);
-    extendLeftMotor = new TalonFX(Constants.kExtendLeftMotorID);
-    extendRightMotor = new TalonFX(Constants.kExtendRightMotorID);
-    leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    extendMotor = new TalonFX(Constants.kExtendMotorID);
+    extendingMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+
+    
   }
 
   @Override
@@ -48,25 +47,19 @@ public class Intake extends SubsystemBase {
 
   public Command extendIntake(double voltage) {
     extending = true;
-    return this.run(() -> spinIntakeMotors(voltage + Constants.kGExtension));
+    return this.run(() -> extendMotor.setVoltage(voltage + Constants.kGExtension));
   }
 
   public Command stopExtending() {
-    return this.run(() -> spinIntakeMotors(Constants.kGExtension));
-  }
-
-  public void spinIntakeMotors(double voltage) {
-    extendLeftMotor.setVoltage(voltage + Constants.kGExtension);
-    extendRightMotor.setVoltage(voltage + Constants.kGExtension);
+    return this.run(() -> extendMotor.setVoltage(Constants.kGExtension));
   }
 
   public Command retractIntake(double voltage) {
     extending = false;
-    return this.run(() -> spinIntakeMotors(-voltage + Constants.kGExtension));
+    return this.run(() -> extendMotor.setVoltage(-voltage + Constants.kGExtension));
   }
 
   public ConditionalCommand spinStopIntake(double voltage) {
     return new ConditionalCommand(stopIntake(), spinIntake(voltage), () -> spinning);
-
   }
 }
